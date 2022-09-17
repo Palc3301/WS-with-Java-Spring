@@ -11,36 +11,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ActivityWSFacisa.entity.Aluno;
 import com.example.ActivityWSFacisa.entity.User;
-import com.example.ActivityWSFacisa.repository.UserRepository;
-import com.example.ActivityWSFacisa.service.UserService;
+import com.example.ActivityWSFacisa.service.AlunoService;
 
 @RestController
-@RequestMapping(value = "/user")
-public class UserController {
-
+@RequestMapping(value = "aluno")
+public class AlunoController {
+	
 	@Autowired
-	private UserService userService;
-
+	private AlunoService alunoService;
+	
 	@RequestMapping( method = RequestMethod.GET)
-	public ResponseEntity<List<User>> listAllUsers() {
-		return new ResponseEntity<List<User>>(userService.listAllUsers(), HttpStatus.OK);
+	public ResponseEntity<List<Aluno>> listAllAlunos() {
+		return new ResponseEntity<List<Aluno>>(alunoService.listAllAlunos(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public User getUser(@PathVariable int id) {
-		User user = userService.getById(id);
-		return user;
+	@RequestMapping(value = "/{rdm}", method = RequestMethod.GET)
+	public Aluno getAluno(@PathVariable int id) {
+		Aluno aluno = alunoService.getByRdm(id);
+		return aluno;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> createUser(@RequestBody User user) {
+	public ResponseEntity<String> createAluno(@RequestBody Aluno aluno) {
 		
 		try {
-			userService.save(user);
+			alunoService.save(aluno);
 			return new ResponseEntity<String>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 }

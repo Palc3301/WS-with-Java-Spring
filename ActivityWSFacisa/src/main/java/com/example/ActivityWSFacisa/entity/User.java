@@ -1,4 +1,4 @@
-package com.example.ActivityWSFacisa.model;
+package com.example.ActivityWSFacisa.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
