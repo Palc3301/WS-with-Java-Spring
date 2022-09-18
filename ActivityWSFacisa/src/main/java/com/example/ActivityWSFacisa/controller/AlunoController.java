@@ -1,6 +1,7 @@
 package com.example.ActivityWSFacisa.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,40 +9,51 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ActivityWSFacisa.entity.Aluno;
-import com.example.ActivityWSFacisa.entity.User;
 import com.example.ActivityWSFacisa.service.AlunoService;
 
 @RestController
-@RequestMapping(value = "aluno")
+@RequestMapping(value = "/aluno")
 public class AlunoController {
-	
+
 	@Autowired
 	private AlunoService alunoService;
-	
-	@RequestMapping( method = RequestMethod.GET)
+
+	@RequestMapping(value = "/aluno")
 	public ResponseEntity<List<Aluno>> listAllAlunos() {
 		return new ResponseEntity<List<Aluno>>(alunoService.listAllAlunos(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{rdm}", method = RequestMethod.GET)
-	public Aluno getAluno(@PathVariable int id) {
-		Aluno aluno = alunoService.getByRdm(id);
+	@RequestMapping(value = "/{rdm}")
+	public Optional<Aluno> getAluno(@PathVariable int rdm) {
+		Optional<Aluno> aluno = alunoService.getByRdm(rdm);
 		return aluno;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/createAluno")
 	public ResponseEntity<String> createAluno(@RequestBody Aluno aluno) {
-		
+
 		try {
-			alunoService.save(aluno);
+			alunoService.criarAluno(aluno);
 			return new ResponseEntity<String>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	/*@RequestMapping(value = "/updateAluno")
+	public ResponseEntity<Aluno> updateAluno(@PathVariable int rdm, Aluno objeto) {
+		objeto = alunoService.updateAluno(rdm, objeto);
+		return new ResponseEntity<Aluno>(objeto, HttpStatus.OK);
+	}*/
+
+	@RequestMapping(value = "/deleteByRdm")
+	public ResponseEntity<Aluno> deleteAlunoByRdm(@RequestBody int rdm) {
+		alunoService.deleteAlunoByRdm(rdm);
+		return new ResponseEntity<Aluno>(HttpStatus.NO_CONTENT);
+
 	}
 
 }

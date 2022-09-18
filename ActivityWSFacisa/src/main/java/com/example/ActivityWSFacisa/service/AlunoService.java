@@ -1,37 +1,50 @@
 package com.example.ActivityWSFacisa.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ActivityWSFacisa.entity.Aluno;
-import com.example.ActivityWSFacisa.entity.User;
-import com.example.ActivityWSFacisa.excepetions.AlunoAlreadyExistsException;
+import com.example.ActivityWSFacisa.excepetions.UserAlreadyExistsException;
 import com.example.ActivityWSFacisa.repository.AlunoRepository;
 
 @Service
 public class AlunoService {
 
 	@Autowired
-	private AlunoRepository repository;
+	private AlunoRepository alunoRepository;
 
-	public Aluno getByRdm(int id) {
-		return repository.getById(null);
+	/*@Autowired
+	private Aluno aluno;*/
+
+	public Optional<Aluno> getByRdm(int rdm) {
+		return alunoRepository.findById(rdm);
 	}
 
 	public List<Aluno> listAllAlunos() {
-		return (List<Aluno>) repository.findAll();
+		return (List<Aluno>) alunoRepository.findAll();
 	}
 
-	public Aluno save(Aluno aluno) throws AlunoAlreadyExistsException {
+	public Aluno criarAluno(Aluno aluno) throws UserAlreadyExistsException {
 
-		User exist = repository.findByName(aluno.getName());
-
-		if (exist != null) {
-			throw new AlunoAlreadyExistsException();
+		if (aluno == null) {
+			return alunoRepository.save(aluno);
 		}
-		return repository.save(aluno);
+
+		throw new UserAlreadyExistsException();
+	}
+
+	/*public Aluno updateAluno(int rdm, Aluno objeto) {
+		Aluno atualizarAluno = alunoRepository.getOne(rdm);
+		atualizarAluno.setName(objeto.getName());
+		atualizarAluno.setCourse(objeto.getCourse());
+		return alunoRepository.save(atualizarAluno);*/
+	
+
+	public void deleteAlunoByRdm(int rdm) {
+		alunoRepository.deleteById(rdm);
 	}
 
 }

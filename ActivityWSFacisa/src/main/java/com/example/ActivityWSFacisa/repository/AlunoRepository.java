@@ -4,11 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.example.ActivityWSFacisa.entity.Aluno;
-import com.example.ActivityWSFacisa.entity.User;
 
-@RepositoryRestResource(collectionResourceRel = "user", path = "user" )
+@RepositoryRestResource(collectionResourceRel = "aluno", path = "aluno" )
 public interface AlunoRepository extends JpaRepository<Aluno, Integer>{
 	
 
-	public User findByName(String name);
+	public Aluno findByName(String name);
 }
