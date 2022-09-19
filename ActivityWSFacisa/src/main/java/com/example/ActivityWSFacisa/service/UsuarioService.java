@@ -4,14 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import com.example.ActivityWSFacisa.entity.Usuario;
 import com.example.ActivityWSFacisa.excepetions.UserAlreadyExistsException;
 import com.example.ActivityWSFacisa.repository.UsuarioRepository;
 
 @Service
-@Validated
 public class UsuarioService {
 
 	@Autowired
@@ -35,6 +33,7 @@ public class UsuarioService {
 	}
 
 	public Usuario updateUsuario(Usuario usuarioNovo) {
+
 		Usuario usuario = usuarioRepository.findById(usuarioNovo.getId());
 		usuario.setName(usuarioNovo.getName());
 		usuario.setPassword(usuarioNovo.getPassword());

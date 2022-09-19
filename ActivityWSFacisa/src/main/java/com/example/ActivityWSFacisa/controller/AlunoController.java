@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ActivityWSFacisa.entity.Aluno;
-import com.example.ActivityWSFacisa.entity.Usuario;
 import com.example.ActivityWSFacisa.service.AlunoService;
 
 @RestController
@@ -51,7 +50,7 @@ public class AlunoController {
 
 	}
 
-	@RequestMapping(value = "/deleteByRdm")
+	@RequestMapping(value = "/deleteByRdm{rdm}")
 	public ResponseEntity<Aluno> deleteAlunoByRdm(@RequestBody int rdm) {
 		alunoService.deleteAlunoByRdm(rdm);
 		return new ResponseEntity<Aluno>(HttpStatus.NO_CONTENT);

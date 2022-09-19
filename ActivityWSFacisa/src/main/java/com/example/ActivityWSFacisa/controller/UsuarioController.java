@@ -42,7 +42,7 @@ public class UsuarioController {
 		}
 	}
 
-	@RequestMapping(value = "/updateUsuario{id}")
+	@RequestMapping(value = "/updateUsuario/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@PathVariable Usuario usuario) {
 		Usuario usuarioNovo = usuarioService.updateUsuario(usuario);
 		return new ResponseEntity<Usuario>(usuarioNovo, HttpStatus.OK);
