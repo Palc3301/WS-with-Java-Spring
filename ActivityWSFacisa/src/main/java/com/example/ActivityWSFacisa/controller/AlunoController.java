@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ActivityWSFacisa.entity.Aluno;
+import com.example.ActivityWSFacisa.entity.Usuario;
 import com.example.ActivityWSFacisa.service.AlunoService;
 
 @RestController
@@ -43,11 +44,12 @@ public class AlunoController {
 		}
 	}
 
-	/*@RequestMapping(value = "/updateAluno")
-	public ResponseEntity<Aluno> updateAluno(@PathVariable int rdm, Aluno objeto) {
-		objeto = alunoService.updateAluno(rdm, objeto);
-		return new ResponseEntity<Aluno>(objeto, HttpStatus.OK);
-	}*/
+	@RequestMapping(value = "/updateAluno{rdm}")
+	public ResponseEntity<Aluno> updateAluno(@PathVariable Aluno aluno) {
+		Aluno alunoNovo = alunoService.updateAluno(aluno);
+		return new ResponseEntity<Aluno>(alunoNovo, HttpStatus.OK);
+
+	}
 
 	@RequestMapping(value = "/deleteByRdm")
 	public ResponseEntity<Aluno> deleteAlunoByRdm(@RequestBody int rdm) {

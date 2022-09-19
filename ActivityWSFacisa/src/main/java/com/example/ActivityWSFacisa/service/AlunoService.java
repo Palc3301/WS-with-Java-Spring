@@ -16,9 +16,6 @@ public class AlunoService {
 	@Autowired
 	private AlunoRepository alunoRepository;
 
-	/*@Autowired
-	private Aluno aluno;*/
-
 	public Optional<Aluno> getByRdm(int rdm) {
 		return alunoRepository.findById(rdm);
 	}
@@ -36,12 +33,13 @@ public class AlunoService {
 		throw new UserAlreadyExistsException();
 	}
 
-	/*public Aluno updateAluno(int rdm, Aluno objeto) {
-		Aluno atualizarAluno = alunoRepository.getOne(rdm);
-		atualizarAluno.setName(objeto.getName());
-		atualizarAluno.setCourse(objeto.getCourse());
-		return alunoRepository.save(atualizarAluno);*/
-	
+	public Aluno updateAluno(Aluno alunoNovo) {
+		Aluno aluno = alunoRepository.findByRdm(alunoNovo.getRdm());
+		aluno.setName(alunoNovo.getName());
+		aluno.setName(alunoNovo.getName());
+		aluno.setCourse(alunoNovo.getCourse());
+		return alunoRepository.save(aluno);
+	}
 
 	public void deleteAlunoByRdm(int rdm) {
 		alunoRepository.deleteById(rdm);

@@ -34,6 +34,14 @@ public class UsuarioService {
 		throw new UserAlreadyExistsException();
 	}
 
+	public Usuario updateUsuario(Usuario usuarioNovo) {
+		Usuario usuario = usuarioRepository.findById(usuarioNovo.getId());
+		usuario.setName(usuarioNovo.getName());
+		usuario.setPassword(usuarioNovo.getPassword());
+		usuario.setUsuario(usuarioNovo.getUsuario());
+		return usuarioRepository.save(usuario);
+	}
+
 	public void deleteUsuarioById(int id) {
 		usuarioRepository.deleteById(id);
 	}

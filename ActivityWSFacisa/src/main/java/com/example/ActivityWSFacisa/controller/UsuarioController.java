@@ -27,8 +27,8 @@ public class UsuarioController {
 
 	@RequestMapping(value = "/{id}")
 	public Usuario getUser(@PathVariable int id) {
-		Usuario user = usuarioService.getById(id);
-		return user;
+		Usuario usuario = usuarioService.getById(id);
+		return usuario;
 	}
 
 	@RequestMapping(value = "/createUsuario")
@@ -40,6 +40,13 @@ public class UsuarioController {
 		} catch (Exception e) {
 			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@RequestMapping(value = "/updateUsuario{id}")
+	public ResponseEntity<Usuario> updateUsuario(@PathVariable Usuario usuario) {
+		Usuario usuarioNovo = usuarioService.updateUsuario(usuario);
+		return new ResponseEntity<Usuario>(usuarioNovo, HttpStatus.OK);
+
 	}
 
 	@RequestMapping(value = "/deleteByID")
